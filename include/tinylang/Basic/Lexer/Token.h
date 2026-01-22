@@ -14,7 +14,7 @@ namespace tinylang{
         const char* Ptr;
         // This is the length of the token.
         size_t length ;
-        
+
         tok::TokenKind Kind;
     public :
      tok::TokenKind getKind() const { return Kind; }
@@ -42,6 +42,14 @@ namespace tinylang{
            "Cannot get identfier of non-identifier");
     return StringRef(Ptr, length);
   }
+
+  //What assert(expr && "message") really means 
+  /*
+  if (!(x)) {
+  print("Assertion failed: x");
+  abort();
+  }
+  */
 
     StringRef getLiteralData() {
     assert(isOneOf(tok::integer_literal,

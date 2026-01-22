@@ -10,7 +10,11 @@
 #include "llvm/Support/SourceMgr.h" 
 
 namespace tinylang {
-
+/*
+There are far more keywords now. How can we handle this? A simple
+and fast solution is to populate a hash table with the keywords, which are all stored in the
+TokenKinds.def file.
+*/
 class KeywordFilter {
     llvm::StringMap <tok::TokenKind> keyword_table;
     void addKeyword (llvm::StringRef Keyword, tok::TokenKind TokenCode) ;
