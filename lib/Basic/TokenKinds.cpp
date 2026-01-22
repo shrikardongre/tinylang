@@ -4,6 +4,7 @@
 using namespace tinylang;
 // Making a readonly array.
 static const char* const TokNames[]={
+    // This #ID converts it to "ID" that is stringification of the ID.
 #define TOK(ID) #ID,
 #define KEYWORD(ID, FLAG) #ID,
 #include "../../include/tinylang/Basic/TokenKinds.def"
