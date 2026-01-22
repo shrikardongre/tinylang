@@ -29,6 +29,21 @@ const char *tok::getPunctuatorSpelling(TokenKind Kind) {
 
 const char *tok::getKeywordSpelling(TokenKind Kind) {
   switch (Kind) {
+    // This kw_ ## ID is token pasting that concatenates the token at processing time .
+    /*
+    Example : #define MAKE(x) foo_##x
+              MAKE(bar)
+    becomes 
+    foo_bar
+    
+    In .def file 
+
+    #define KEYWORD(ID, FLAG) TOK(kw_ ## ID) 
+    so , KEYWORD(IF, KEYALL) --> TOK(kw_IF) --> kw_IF 
+    The whole conversion is seen as 
+    case kw_IF: return "IF"; 
+    */ 
+    
 #define KEYWORD(ID, FLAG) case kw_ ## ID: return #ID;
 #include "../../include/tinylang/Basic/TokenKinds.def"
     default: break;
