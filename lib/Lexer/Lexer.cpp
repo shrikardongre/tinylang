@@ -1,4 +1,4 @@
-#include "../../include/tinylang/Basic/Lexer/Lexer.h"
+#include "../../include/tinylang//Lexer/Lexer.h"
 using namespace tinylang;
 
 void KeywordFilter::addKeyword(StringRef Keyword, tok::TokenKind TokenCode) {
