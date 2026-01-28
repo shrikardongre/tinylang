@@ -1,8 +1,8 @@
 #ifndef TINYLANG_LEXER_TOKEN_H
 #define TINYLANG_LEXER_TOKEN_H
 
-#include "../LLVM.h"
-#include "../TokenKinds.h"
+#include "../Basic/LLVM.h"
+#include "../Basic/TokenKinds.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/SMLoc.h"
 

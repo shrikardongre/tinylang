@@ -1,9 +1,9 @@
 #ifndef TINYLANG_LEXER_LEXER_H
 #define TINYLANG_LEXER_LEXER_H
 
-#include "../Diagnostic.h"
-#include "../LLVM.h"
-#include "Token.h"
+#include "../Basic/Diagnostic.h"
+#include "../Basic/LLVM.h"
+#include "./Token.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/MemoryBuffer.h"
