@@ -3,13 +3,19 @@
 
 #include "../Basic/Diagnostic.h"
 #include "../Lexer/Lexer.h"
+#include "../Sema/Sema.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Support/raw_ostream.h"
 
 namespace tinylang {
+
 class Parser {
+
   Lexer &Lex;
+
+  Sema &Actions;
+
   Token Tok;
 
   DiagnosticsEngine &getDiagnostics() const { return Lex.getDiagnostics(); }
@@ -18,13 +24,12 @@ class Parser {
 
   bool expect(tok::TokenKind ExpectedTok) {
     if (Tok.is(ExpectedTok)) {
-      return false; 
+      return false;
     }
-    
+  
     const char *Expected = tok::getPunctuatorSpelling(ExpectedTok);
-    if (!Expected) {
+    if (!Expected)
       Expected = tok::getKeywordSpelling(ExpectedTok);
-    }
     llvm::StringRef Actual(Tok.getLocation().getPointer(), Tok.getLength());
     getDiagnostics().report(Tok.getLocation(), diag::err_expected, Expected,
                             Actual);
@@ -39,9 +44,6 @@ class Parser {
     return true;
   }
 
-  // The error scheme here is like if the parsing is succesfull then consume
-  // will return false else if true is returned it will know still there is
-  // something to solve .
   template <typename... Tokens> bool skipUntil(Tokens &&...Toks) {
     while (true) {
       if ((... || Tok.is(Toks)))
@@ -60,8 +62,7 @@ class Parser {
   bool parseConstantDeclaration(DeclList &Decls);
   bool parseVariableDeclaration(DeclList &Decls);
   bool parseProcedureDeclaration(DeclList &ParentDecls);
-  bool parseFormalParameters(FormalParamList &Params,
-                             Decl *&RetType);
+  bool parseFormalParameters(FormalParamList &Params, Decl *&RetType);
   bool parseFormalParameterList(FormalParamList &Params);
   bool parseFormalParameter(FormalParamList &Params);
   bool parseStatementSequence(StmtList &Stmts);
@@ -80,12 +81,10 @@ class Parser {
   bool parseQualident(Decl *&D);
   bool parseIdentList(IdentList &Ids);
 
-  public:
-  Parser(Lexer &Lex);
+public:
+  Parser(Lexer &Lex, Sema &Actions);
 
   ModuleDeclaration *parse();
-
 };
 } // namespace tinylang
-
 #endif
